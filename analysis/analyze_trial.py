@@ -29,10 +29,8 @@ except Exception as e:
 
 #plt.rcParams.update({'font.size': 8, 'text.usetex' : True })
 
-cols_ = { 'time' : 0 , 'sensor' : 1 , 'trial_count' : 2
-        , 'tone' : 3 , 'puff' : 4 , 'led' : 5 , 'status' : 6 }
-
-columns_ = [ 'time', 'sensor', 'trial_count', 'tone', 'puff', 'led', 'status']
+columns_ = [ 'time', 'sensor', 'trial_count', 'tone', 'puff', 'led', 'status'
+        , 'imaging' ]
 
 aN, bN = 0, 0
 toneBeginN, toneEndN = 0, 0

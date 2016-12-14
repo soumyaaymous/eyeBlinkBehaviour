@@ -152,11 +152,18 @@ def main(  ):
     areaUnderCurve = []
     for idx  in fileIdx:
         f, fname = files[idx]
-        result = None
-        aoc, result = at.main( { 'input' : f
-            , 'output' : os.path.join(args_.output_dir, fname+'.png') 
-            , 'plot' : args_.plot_trials }
-            )
+        aoc, result = None, None
+        try:
+            aoc, result = at.main( { 'input' : f
+                , 'output' : os.path.join(args_.output_dir, fname+'.png') 
+                , 'plot' : args_.plot_trials }
+                )
+        except Exception as e:
+            print( "[WARNING] Failed to analyze trial %s" % f 
+                    + "Error was : %s" % e
+                    )
+            continue
+
         if result is None or result.empty:
             continue
 
@@ -172,7 +179,7 @@ def main(  ):
             r = row
             # NO PUFF trial
             if idx % 10 == 0:
-                print( '[INFO] File %s if probe trial' % idx )
+                print( '[INFO] File index %d is a probe trial' % idx )
                 probes.append( result )
             else:
                 data.append( result )
