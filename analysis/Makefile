@@ -2,6 +2,7 @@
 # there is no space between := and directory path.
 DATADIR:=$(HOME)/Desktop/Work/Behaviour/MouseS221/MouseS221_SessionType1_Session1/
 DATADIR:=../../MouseS266/
+DATADIR:= /data/dilawars/Behaviour/MouseS266/MouseS266_SessionType1_Session2
 CURRDIR:=$(shell pwd)
 RESULT_DIR:=$(CURRDIR)/_results
 

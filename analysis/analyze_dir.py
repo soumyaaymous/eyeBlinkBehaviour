@@ -178,7 +178,7 @@ def main(  ):
             areaUnderCurve.append( aoc )
             r = row
             # NO PUFF trial
-            if idx % 10 == 0:
+            if (idx + 1) % 10 == 0:
                 print( '[INFO] File index %d is a probe trial' % idx )
                 probes.append( result )
             else:
