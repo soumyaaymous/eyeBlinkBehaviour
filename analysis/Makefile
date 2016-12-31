@@ -1,6 +1,7 @@
 # Change this directory to point to session data. Make sure 
 # there is no space between := and directory path.
 DATADIR:= $(HOME)/Desktop/Work/Behaviour/MouseS266/MouseS266_SessionType1_Session2
+DATADIR:=../../MouseS266/
 CURRDIR:=$(shell pwd)
 RESULT_DIR:=$(CURRDIR)/_results
 
