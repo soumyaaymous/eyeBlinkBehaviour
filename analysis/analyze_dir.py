@@ -80,7 +80,7 @@ def plot_subplot( ax, data, title, **kwargs ):
     ax.grid( False )                # Grid is set to False
     ax.set_xlim( [ xmin_, xmax_ ] )
 
-    plt.colorbar( im, ax=ax, orientation = 'vertical' )
+    plt.colorbar( im, ax=ax, orientation = 'vertical', fraction=0.1 )
     #position = plt.gcf().add_axes([ 0.9,0.1,0.02,0.55])
     #plt.colorbar( im, cax = position
     #        , orientation = 'vertical' )
