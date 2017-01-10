@@ -73,15 +73,18 @@ def plot_subplot( ax, data, title, **kwargs ):
             , interpolation = 'none', aspect='auto' 
             , extent = (tmin, tmax, 0, newImg.shape[0] )
             )
-    ax.set_xlabel( kwargs.get('xlabel', 'Time in ms' ) )
-    ax.set_ylabel( kwargs.get( 'ylabel', r'\# Trial' ) )
+    if kwargs.get( 'xlabel', False):
+        ax.set_xlabel( kwargs[ 'xlabel' ] )
+    ax.set_ylabel( kwargs.get( 'ylabel', r'# Trial' ) )
     ax.set_title( title )
     ax.grid( False )                # Grid is set to False
     ax.set_xlim( [ xmin_, xmax_ ] )
+
+    plt.colorbar( im, ax=ax, orientation = 'vertical', fraction=0.1 )
+    #position = plt.gcf().add_axes([ 0.9,0.1,0.02,0.55])
+    #plt.colorbar( im, cax = position
+    #        , orientation = 'vertical' )
     ax.legend( )
-    position = plt.gcf().add_axes([ 0.9,0.1,0.02,0.55])
-    plt.colorbar( im, cax = position
-            , orientation = 'vertical' )
 
 def resample_data( data ):
     global xmin_, xmax_
@@ -106,10 +109,10 @@ def make_summary_plot( ax, data ):
     for d, t in data[1:]:
         yvecs.append( d )
     sum = np.sum( yvecs, axis=0) / len( yvecs )
-    ax.plot(tvec, sum )
+    ax.plot(tvec, sum, label = 'Sensor readout' )
     ax.set_title( 'Summary of CS+ trials' )
-    ax.set_xlabel( 'Time in ms' )
-    ax.set_ylabel( 'Avg sensor readout' )
+    # ax.set_xlabel( 'Time in ms. Last $T_{TONE}=0$' )
+    ax.set_ylabel( 'mV' )
     ax.set_xlim( [ xmin_, xmax_ ] )
     ax.legend( framealpha = 0.4 )
 
@@ -203,8 +206,8 @@ def main(  ):
     # Plotting starts here. Before going through the following code make sure
     # that xmin_ and xmax_ are properly set.
     ax1 = plt.subplot2grid((7,1), (0,0), rowspan=2)
-    ax2 = plt.subplot2grid((7,1), (2,0), rowspan=3)
-    ax3 = plt.subplot2grid((7,1), (5,0), rowspan=2)
+    ax2 = plt.subplot2grid((7,1), (2,0), rowspan=3, sharex=ax1)
+    ax3 = plt.subplot2grid((7,1), (5,0), rowspan=2, sharex=ax1)
 
     # Before plotting anything, align the date. During this we compute the x-axis
     # span to make sure that eveything align well.
@@ -213,15 +216,15 @@ def main(  ):
 
     make_summary_plot(ax1, alignedData  )
 
-
     plot_subplot( ax2, alignedData, 'Conditioned Stimulus'
-            , xlabel = 'Time in ms. Last $T_{TONE}=0$'
+            # , xlabel = 'Time in ms. Last $T_{TONE}=0$'
             )
 
     print( 'Plotting probes' )
     plot_subplot( ax3, alignedProbs, 'Probes' 
             , xlabel = 'Time in ms. Last $T_{TONE}=0$'
             )
+
 
     outfile = '%s/summary.png' % args_.output_dir
     print('[INFO] Saving file to %s' % outfile )
